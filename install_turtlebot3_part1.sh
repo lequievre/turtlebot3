@@ -50,6 +50,9 @@ sudo apt-get install ros-kinetic-librealsense
 #ros dep update
 rosdep update
 
+#auto remove linux packages
+sudo apt autoremove
+
 #read -n1 -rsp $'Press any key to install turtlebot3 dependent packages or Ctrl+C to exit...\n'
 
 #Install turtlebot3 dependent packages
