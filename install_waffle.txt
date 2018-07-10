@@ -1,0 +1,487 @@
+Yoann RATAO
+Laurent LEQUIEVRE
+Institut Pascal UMR6602
+yoann.ratao@uca.fr
+laurent.lequievre@uca.fr
+
+suivre dans l'ordre :
+http://emanual.robotis.com/docs/en/platform/turtlebot3/getting_started/#about-turtlebot3
+
+It is recommended to proceed in the following order.
+
+   1- PC Setup: Install Linux, ROS and application software for TurtleBot3 on your Remote PC.
+   2- SBC Setup: Install Linux, ROS and hardware related software to control the TurtleBot3 on your TurtleBot PC.
+   3- OpenCR Setup: Upload latest firmware of TurtleBot3 to OpenCR embedded board.
+   4- Hardware Setup: TurtleBots3 is delivered as unassembled parts in the box. Follow the instructions to assemble TurtleBot3. Prepared SBC and OpenCR will be mounted on the robot.
+
+
+1- INSTALLATIONS COTE PC
+========================
+
+1- PC Setup
+
+Installation de ros kinetic manuelle : (http://wiki.ros.org/kinetic/Installation/Ubuntu)
+--------------------------------------
+
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+
+sudo apt-get update
+
+sudo apt-get install ros-kinetic-desktop-full
+
+sudo rosdep init
+rosdep update
+
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
+
+Install Dependent ROS Packages (turtlebot3)
+-------------------------------------------
+
+sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
+
+Creation du workspace ros turtlebot3
+------------------------------------
+
+cd ~
+mkdir turtlebot3
+cd turtlebot3
+mkdir -p catkin_ws/src
+cd catkin_ws/src
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+cd ..
+catkin_make
+
+Pour avoir les wlan0, eth0 classique, il faut ajouter une commande au grub :
+---------------------------------------------------------------------------
+sudo nano /etc/default/grub
+GRUB_CMDLINE_LINUX="net.ifnames=0"
+
+sudo update-grub
+sudo reboot
+
+Pour voir les eth0, wlan0 ... :  (sudo apt install inxi)
+------------------------------
+inxi -n
+ou bien
+ifconfig
+
+Pour voir le menu grub et choisir son noyau :
+--------------------------------------------
+sudo nano /etc/default/grub
+mettre un '#' devant la ligne : GRUB_HIDDEN_TIMEOUT=0 (pour la commenter)
+puis mettre à jour grub avec la commande : sudo update-grub
+
+2- INSTALLATION COTE WAFFLE
+===========================
+
+http://emanual.robotis.com/docs/en/platform/turtlebot3/joule_setup/#install-linux-ubuntu
+
+- Installation d'Unbuntu sur Intel Joule
+----------------------------------------
+-> Connecter le waffle au PC remote via le câble USB-C (le waffle est vu comme une clé USB côté PC Remote)
+
+Télécharger ubuntu 16.04 en cliquant sur le lien : Download Ubuntu 16.04 for Intel® Joule™
+
+ATTENTION: ne pas laisser une clé USB pour éviter la confusion du choix du périphérique
+
+taper la commande : gnome-disks
+-> Sélectionner le drive SD
+-> cliquer sur le bouton de parametrage en haut à droite
+-> choisir l'option 'Restaurer l'image disque ...'
+-> choisr le fichier iso ubuntu téléchargé précedemment
+-> cliquer sur le bouton pour 'démarrer ...' puis le bouton 'restaurer ...'
+-> A la fin : cliquer sur le bouton de parametrage en haut à droite puis choisir 'eteindre'
+
+démarrer avec la carte SD qui contient l'iso et suivre cette installation : http://emanual.robotis.com/docs/en/platform/turtlebot3/step_by_step_to_install_ubuntu_on_joule/
+
+Vérification du firmware
+-------------------------
+
+Pour avoir des infos sur le hard, on peut installer hardinfo :
+Installer le paquet hardfinfo
+sudo apt-get install hardinfo
+
+sudo hardinfo
+
+Pour connaître le n° de version du BIOS :
+sudo dmidecode | less
+
+BIOS Information -> Release Date : 02/19/2017  (La date de release doit être au minimum 19/02/2017).
+
+
+Installations complémentaires ubuntu:
+------------------------------------
+sudo apt-get install synaptic
+
+Install ssh
+-----------
+
+->  installer le paquet ubuntu :
+sudo apt-get install openssh-server
+
+-> activer me service au démarrage :
+sudo systemctl enable ssh.service
+
+-> pour vérifier son état :
+sudo systemctl status ssh.service
+
+-> pour liste les services :
+sudo systemctl list-unit-files | grep service | sort
+
+-> pour un service donné (ssh par exemple) :
+sudo systemctl list-unit-files | grep service | grep ssh
+
+cf lien : http://doc.ubuntu-fr.org/systemd
+
+--> se connecter au waffle en ssh via le Pc remote :
+-> sur le pc remote:
+ssh leonardo@ip_address_of_waffle
+
+-Installation ROS Kinetic
+-------------------------
+
+sudo apt-get update
+sudo apt-get upgrade
+wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
+
+Install les paquets ros dépendant
+---------------------------------
+sudo apt-get install ros-kinetic-rosserial-python ros-kinetic-tf
+
+Installation des paquets turtlebot
+----------------------------------
+cd ~/catkin_ws/src
+
+git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+
+sudo reboot
+cd ~/catkin_ws
+catkin_make
+
+USB settings :
+--------------
+
+rosrun turtlebot3_bringup create_udev_rules
+(en fait copie le fichier turtlebot3/turtlebot3_bringup/99-turtlebot3-cdc.rules dans le dossier /etc/udev/rules.d)
+
+OpenCR Setup
+------------
+
+export OPENCR_PORT=/dev/ttyACM0
+export OPENCR_MODEL=waffle
+
+mkdir ~/opencr_update
+cd opencr_update
+wget https://github.com/ROBOTIS-GIT/OpenCR/raw/develop/arduino/opencr_release/shell_update/opencr_update.tar.bz2 && tar -xvf opencr_update.tar.bz2 && cd ./opencr_update && ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr && cd ..
+
+(When firmware upload is completed, jump_to_fw text string will be printed on the terminal.)
+
+
+3- Installation Arduino IDE côté PC
+===================================
+(Il s'agit de donner des permissions root sur le port USB, pour pouvoir envoyer des programmes arduino via le câble USB vers le waffle).
+http://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#arduino-ide
+cd ~
+mkdir turtlebot3
+mkdir opencr
+cd turtlebot3/opencr
+
+a) USB Port Settings
+--------------------
+
+wget https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules
+sudo cp ./99-opencr-cdc.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+Redémarrer le PC
+
+b) Compiler Settings
+--------------------
+
+sudo apt-get install libncurses5-dev:i386
+
+c) Install Arduino IDE(Linux)
+-----------------------------
+cd ~/turtlebot3
+mkdir arduino_ide
+
+Télécharger la version 1.8.5 Linux 64 bits
+dans le dossier arduino_ide
+
+cd ~/turtlebot3/arduino_ide/arduino-1.8.5
+
+gedit ~/.bashrc
+export PATH=$PATH:$HOME/turtlebot3/arduino_ide/arduino-1.8.5
+
+source ~/.bashrc
+
+d) Install the OpenCR package via Boards Manager
+------------------------------------------------
+Lancer arduino
+Dans une fenêtre terminal, taper la commande : arduino
+
+-> Menu Fichier/Préférences
+Copier/Coller dans URL de Gestionnaires de cartes supplémentaires :
+https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
+Cliquer sur OK
+
+-> Menu Outils/Type de carte "OpenCR Board"/Gestionnaire de carte
+Dans le champs texte filre : openCR
+On obtient OpenCR by robotis 
+Puis cliquer sur "Installer" (c'est la version 1.2.0)
+
+-> Vérifier si la carte est installée : 
+Menu Outils/Type de carte "OpenCR Board" -> la carte "OpenCR Board" doit se trouver en bas de liste
+
+e) Port setting
+---------------
+-> Choisir le Port : menu Outils/Port -> sélectionner /dev/ttyACM0
+
+f) Upload waffle firmware (On a déjà fait cette étape côté waffle on exécutant un script -> cf OpenCR Setup)
+--------------------------
+
+On peut "téléverser" du code sur la ROM de la carte arduino du waffle.
+Pour se faire, il faut enlever le partie haute du waffle, débrancher le câble micro usb relié au switch USB, puis connecter un câble micro usb côté waffle (sur carte arduino) et USB côté PC.
+On peut par exemple téléversé le "code firmware du core waffle" en utilisant les exemples fournis.
+Menu Fichier/Exemples/TurtleBot3/turtlebot3_waffle/turtlebot3_core
+Puis cliquer sur la flèche ("téléverser) sous le menu Fichier. Normalement on obtient "jmp_to_fw".
+
+Remarques: 
+-> On a du supprimer le paquet "modemmanager"
+sudo apt-get purge modemmanager
+-> On peut "téléverser" des codes arduino "Exemples" Menu Fichier/Exemples/OpenCR, mais attention cela efface la ROM, du coup on perd le core turtlebot3 !
+
+On profite que la partie haute est retirée pour tester la carte arduino via les boutons PUSH SW1 et PUSH SW2.
+(http://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#basic-operation)
+
+
+4- Configuration Wifi
+=====================
+
+Côté PC
+-------
+
+Créer un nouveau réseau Wifi. On le nomme "wifininja".
+Onglet Wifi
+SSID = "wifininja"
+Mode = "Point d'accès"
+Bande = "Automatique"
+Canal = "Par défaut"
+Périphérique = Choisir la carte réseau Wlan0...
+Adresse MAC clonée = ne rien mettre
+MTU = "Automatique"
+Onglet Sécurité wifi
+Sécurité = "Aucune"
+Onglet Paramètre IP V4
+Méthode = "Partager avec d'autres ordinateurs"
+Cocher "Requiert un adressage ip v4 ..."
+Onglet Paramètres IP V6
+Méthode = "Ignorer"
+
+Côté Waffle
+-----------
+Créer un nouveau réseau Wifi. On le nomme "wifininja-client".
+SSID = "wifininja"
+Mode = "Client"
+BSSID = ne rien mettre
+Périphérique = Choisir la carte réseau wifi ...
+Adresse MAC clonée = ne rien mettre
+MTU = "Automatique"
+Onglet Sécurité wifi
+Sécurité = "Aucune"
+Onglet Paramètre IP V4
+Méthode = "Manuel"  (10.42.0.4 , 255.255.255.0, 0.0.0.0
+Cocher "Requiert un adressage ip v4 ..."
+Onglet Paramètres IP V6
+Méthode = "Ignorer"
+
+Se connecter à un réseau wifi sans fil, puis choisir "wifininja-client"
+
+5- Positionner les variables d'environnement système linux ROS
+==============================================================
+
+-> Il faut définir des variables système à la fin du fichier .bashrc (via la commande export).
+-> Le "roscore" sera lancé sur le PC qui a l'adresse ip par défaut "10.42.0.1".
+
+-> ajouts côté waffle/burger :
+export ROS_MASTER_URI=http://10.42.0.1:11311
+export ROS_HOSTNAME=10.42.0.4  (exemple d'adresse ip du turtlebot3)
+export TURTLEBOT3_MODEL=burger  (ou waffle)
+
+-> ajouts côté PC :
+export ROS_MASTER_URI=http://10.42.0.1:11311
+export ROS_HOSTNAME=10.42.0.1  (adresse ip du PC)
+export TURTLEBOT3_MODEL=burger (ou waffle)
+
+Remarque: 
+---------
+-> On a créé sur le PC un fichier script bash (set_ros_env_turtlebot3.sh) pour éviter de positionner ces variables en dur dans le fichier ".bashrc".
+
+Voici son contenu :
+-------------------
+
+#!/bin/sh
+
+# Ip address of PC remote -> 10.42.0.1
+# Ip address of burger donatello -> 10.42.0.3
+# Ip address of waffle leonardo -> 10.42.0.4
+
+export ROS_MASTER_URI=http://10.42.0.1:11311
+export ROS_HOSTNAME=10.42.0.1
+export TURTLEBOT3_MODEL=$1
+
+(ici un paramètre $1 a été ajouté afin de spécifier au lancement de ce script le nom du modèle : waffle ou burger)
+
+-> Pour simplifier le lancement des commandes (bash ou ros) côté PC et waffle/burger, on a créé des alias de commande dans le .bashrc.
+-> Ces alias seront lancés dans une fenêtre terminal.
+
+Création d'alias côté waffle/burger :
+------------------------------------
+
+alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'
+
+Création d'alias côté PC :
+--------------------------
+
+alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'
+alias tb3_set_env_waffle='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle'
+alias tb3_print_env='echo "ROS_MASTER_URI=$ROS_MASTER_URI" && echo "ROS_HOSTNAME=$ROS_HOSTNAME" && echo "TURTLEBOT3_MODEL=$TURTLEBOT3_MODEL"'
+alias tb3_bringup='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_bringup turtlebot3_remote.launch'
+alias tb3_rviz_model='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz'
+alias tb3_rviz_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosrun rviz rviz -d `rospack find turtlebot3_example`/rviz/turtlebot3_interactive.rviz'
+alias tb3_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_example interactive_markers.launch'
+alias tb3_stop='source ~/turtlebot3/send_stop.sh' 
+alias tb3_teleop='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch'
+
+Des exemples côté waffle/burger :
+---------------------------------
+-> Pour lancer le 'bringup' :
+tb3_bringup
+
+Des exemples côté PC :
+----------------------
+-> Pour positionner les variables d'env ros (à faire avant de lancer un quelconque launch ros) :
+tb3_set_env_burger (si c'est un burger) ou tb3_set_env_waffle (si c'est un waffle)
+
+-> Pour afficher le contenu des variables d'env ros :
+tb3_print_env
+
+-> Pour lancer le 'bringup' :
+tb3_bringup
+
+-> Pour lancer un topic de commande afin de stopper le robot :
+tb3_stop
+
+...
+
+
+
+===========================
+creer une clé USB bootable avec l'outil "création de disque de démarrage" -> Menu Système/Administration/Créateur de disque de démarrage
+
+Erase disk and  install Ubuntu -> Continue
+Select Drive -> MMC/SD Card (mmcblk1) 15.7 Go -> Install Now
+Restart now
+F7 bios -> choisir de démarrer sur EFI uSD Device (SD card)
+Langue -> Français -> Continuer
+Je ne souhaite pas me connecter à un réseau wifi pour le moment
+Paris
+Français - Français
+Nom -> raphael, nom de l'ordinateur -> raphael, mot de passe -> sigma -> continuer
+
+Pour installer côté waffle:
+se connecter avec le wifininja (qui partage la connexion internet du PC remote via le wifi)
+sudo apt-get git
+sudo apt-get firefox
+
+puis
+
+cd ~
+mkdir install_turtlebot3
+cd install_turtlebot3
+git clone https://github.com/lequievre/turtlebot3.git
+cd turtlebot3
+source install_turtlebot3_part1.sh
+
+puis reboot du turtlebot3
+
+cd ~/install_turtlebot3/turtlebot3
+source install_turtlebot3_part2.sh
+
+===============================================================
+Installer un Waffle de A à Z (Avec l'aide de scripts bash)
+===============================================================
+
+1- Créer une clé USB bootable avec Ubuntu 16.04 Intel Joule
+creer une clé USB bootable avec l'outil "création de disque de démarrage" -> Menu Système/Administration/Créateur de disque de démarrage
+cf : http://emanual.robotis.com/docs/en/platform/turtlebot3/joule_setup/#install-linux-ubuntu
+Télécharger ubuntu 16.04 en cliquant sur le lien : Download Ubuntu 16.04 for Intel® Joule™
+Erase disk and  install Ubuntu -> Continue
+Select Drive -> MMC/SD Card (mmcblk1) 15.7 Go -> Install Now
+Restart now
+
+2- Brancher la clé USB sur le waffle et redémarrer le waffle (pour lancer l'installation d'ubuntu)
+F7 bios -> choisir de démarrer sur EFI uSD Device (SD card)
+Langue -> Français -> Continuer
+Je ne souhaite pas me connecter à un réseau wifi pour le moment
+Paris
+Français - Français
+Nom -> raphael, nom de l'ordinateur -> raphael, mot de passe -> sigma -> continuer
+
+3- Une fois ubuntu installé sur le waffle
+se connecter avec le wifininja (qui partage la connexion internet du PC remote via le wifi)
+sudo apt-get git
+sudo apt-get firefox
+
+cd ~
+mkdir install_turtlebot3
+cd install_turtlebot3
+git clone https://github.com/lequievre/turtlebot3.git
+cd turtlebot3
+source install_turtlebot3_part1.sh
+
+puis reboot du turtlebot3 (choisir l'interface gnome metacompiz)
+
+cd ~/install_turtlebot3/turtlebot3
+source install_turtlebot3_part2.sh
+
+4- Editer le .bashrc
+pour enlever les anciens ROS_MASTER_URI (en localhost) et ROS_HOSTNAME
+
+5- Créer le config réseau Côté Waffle
+
+Créer un nouveau réseau Wifi. On le nomme "wifininja-client".
+SSID = "wifininja"
+Mode = "Client"
+BSSID = ne rien mettre
+Périphérique = Choisir la carte réseau wifi ...
+Adresse MAC clonée = ne rien mettre
+MTU = "Automatique"
+Onglet Sécurité wifi
+Sécurité = "Aucune"
+Onglet Paramètre IP V4
+Méthode = "Manuel"  (10.42.0.4 , 255.255.255.0, 0.0.0.0
+Cocher "Requiert un adressage ip v4 ..."
+Onglet Paramètres IP V6
+Méthode = "Ignorer"
+
+Se connecter à un réseau wifi sans fil, puis choisir "wifininja-client"
+
+6- Il faut penser à modifier le fichier (en sudo) /etc/hosts en ajoutant le nom du waffle et l'ip (côté PC et waffle)
+par exemple :
+10.42.0.5    raphael
+
+
+
+
+
+
