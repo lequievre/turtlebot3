@@ -14,6 +14,9 @@ read -n1 -rsp $'Press any key to catkin_make turtlebot3 packages or Ctrl+C to ex
 cd ~
 cd ~/catkin_ws && catkin_make -j2
 
+#Load firmware video for realsense camera
+sudo modprobe uvcvideo
+
 #read -n1 -rsp $'Press any key to add .bashrc config or Ctrl+C to exit...\n'
 
 #Add devel bash script in .bashrc file
@@ -24,6 +27,7 @@ echo "export ROS_MASTER_URI=http://$IP_RMU:11311" >> ~/.bashrc
 echo "export ROS_HOST_NAME=$IP_RHN" >> ~/.bashrc
 echo "export TURTLEBOT3_MODEL=$T_MODEL" >> ~/.bashrc
 echo "alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'" >> ~/.bashrc
+echo "alias tb3_r200_default='roslaunch realsense_camera r200_nodelet_default.launch'" >> ~/.bashrc
 
 source ~/.bashrc
 
