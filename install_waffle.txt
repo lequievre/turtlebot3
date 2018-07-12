@@ -425,11 +425,13 @@ Installer un Waffle de A à Z (Avec l'aide de scripts bash)
 creer une clé USB bootable avec l'outil "création de disque de démarrage" -> Menu Système/Administration/Créateur de disque de démarrage
 cf : http://emanual.robotis.com/docs/en/platform/turtlebot3/joule_setup/#install-linux-ubuntu
 Télécharger ubuntu 16.04 en cliquant sur le lien : Download Ubuntu 16.04 for Intel® Joule™
-Erase disk and  install Ubuntu -> Continue
-Select Drive -> MMC/SD Card (mmcblk1) 15.7 Go -> Install Now
-Restart now
+
 
 2- Brancher la clé USB sur le waffle et redémarrer le waffle (pour lancer l'installation d'ubuntu)
+NE LAISSER QUE LA SOURIS SI MANQUE DE PORT USB
+Erase disk and  install Ubuntu -> Continue
+Select Drive -> MMC/SD Card #2(mmcblk1) 15.7 Go MMC 016G32-> Install Now
+Restart now
 F7 bios -> choisir de démarrer sur EFI uSD Device (SD card)
 Langue -> Français -> Continuer
 Je ne souhaite pas me connecter à un réseau wifi pour le moment
@@ -457,6 +459,10 @@ source install_turtlebot3_part2.sh
 4- Editer le .bashrc
 pour enlever les anciens ROS_MASTER_URI (en localhost) et ROS_HOSTNAME
 
+4bis- Il faut penser à modifier le fichier (en sudo) /etc/hosts en ajoutant le nom du waffle et l'ip (côté PC et waffle)
+par exemple :
+10.42.0.5    raphael
+
 5- Créer le config réseau Côté Waffle
 
 Créer un nouveau réseau Wifi. On le nomme "wifininja-client".
@@ -476,9 +482,26 @@ Méthode = "Ignorer"
 
 Se connecter à un réseau wifi sans fil, puis choisir "wifininja-client"
 
-6- Il faut penser à modifier le fichier (en sudo) /etc/hosts en ajoutant le nom du waffle et l'ip (côté PC et waffle)
-par exemple :
-10.42.0.5    raphael
+Pb camera
+
+sudo apt-get dist-upgrade
+sudo apt-get --reinstall install 'ros-*-librealsense'
+
+vérifier /etc/hosts (waffle et turtlebot3) -> roscore doit être lancé côté pc remote !
+
+suivre aussi : http://wiki.ros.org/realsense_camera/Tutorials/Building_from_Sources
+
+rosdep update
+cd ~/catkin_ws
+rosdep -y install --from-paths src --ignore-src
+
+cd ~/catkin_ws
+catkin_make
+
+
+
+
+
 
 
 
