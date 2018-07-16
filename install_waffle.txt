@@ -454,16 +454,24 @@ source install_turtlebot3_part1.sh
 puis reboot du turtlebot3 (choisir l'interface gnome metacompiz)
 
 cd ~/install_turtlebot3/turtlebot3
+editer le fichier 'install_turtlebot3_part2.sh' et adapter l'adresse IP du waffle (variable IP_RHN)
+nano install_turtlebot3_part2.sh
 source install_turtlebot3_part2.sh
 
 4- Editer le .bashrc
-pour enlever les anciens ROS_MASTER_URI (en localhost) et ROS_HOSTNAME
+cd ~
+nano .bashcr
+(pour commenter les anciens ROS_MASTER_URI (en localhost) et ROS_HOSTNAME -> mettre un '#' devant les 2 lignes, car le script en a créé des nouveaux)
 
 4bis- Il faut penser à modifier le fichier (en sudo) /etc/hosts en ajoutant le nom du waffle et l'ip (côté PC et waffle)
+sudo nano /etc/hosts
 par exemple :
 10.42.0.5    raphael
+(Attention à ne pas mettre de tabulations)
+Côté PC, il doit contenir tous les noms des waffles associés à leurs addresses ip
+Côté waffle, il doit contenir le nom du waffle associé à son adresse ip
 
-5- Créer le config réseau Côté Waffle
+5- Créer la config réseau Côté Waffle
 
 Créer un nouveau réseau Wifi. On le nomme "wifininja-client".
 SSID = "wifininja"
@@ -482,14 +490,12 @@ Méthode = "Ignorer"
 
 Se connecter à un réseau wifi sans fil, puis choisir "wifininja-client"
 
-Pb camera
+6- terminer l'installation pour la caméra intel realsense
 
 sudo apt-get dist-upgrade
 sudo apt-get --reinstall install 'ros-*-librealsense'
 
-vérifier /etc/hosts (waffle et turtlebot3) -> roscore doit être lancé côté pc remote !
-
-suivre aussi : http://wiki.ros.org/realsense_camera/Tutorials/Building_from_Sources
+(suivre aussi : http://wiki.ros.org/realsense_camera/Tutorials/Building_from_Sources)
 
 rosdep update
 cd ~/catkin_ws
@@ -499,12 +505,59 @@ cd ~/catkin_ws
 catkin_make
 
 
+7- faire les tests
+Pour plus de simplification :
+-> Il faut penser à créer des alias de commandes côté PC et côté waffle dans le fichier .bashrc (dans le home directory).
+-> Il faut aussi vérifier que le fichier /etc/hosts côté PC et waffle est bien alimenté.
+Côté PC, il doit contenir tous les noms des waffles associés à leurs addresses ip
+Côté waffle, il doit contenir le nom du waffle associé à son adresse ip
+-> Il faut aussi penser à lancer le 'roscore' côté PC
+-> Il faut aussi penser à lancer la config wifi 'wifininja-client' côté waffle et vérifier par des ping entre PC et waffle.
 
+alias côté PC :
+--------------
+alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'
+alias tb3_set_env_waffle='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle'
+alias tb3_print_env='echo "ROS_MASTER_URI=$ROS_MASTER_URI" && echo "ROS_HOSTNAME=$ROS_HOSTNAME" && echo "TURTLEBOT3_MODEL=$TURTLEBOT3_MODEL"'
+alias tb3_bringup='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_bringup turtlebot3_remote.launch'
+alias tb3_rviz_model='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz'
+alias tb3_rviz_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosrun rviz rviz -d `rospack find turtlebot3_example`/rviz/turtlebot3_interactive.rviz'
+alias tb3_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_example interactive_markers.launch'
+alias tb3_stop='source ~/turtlebot3/send_stop.sh' 
+alias tb3_teleop='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch'
 
+alias côté waffle : (alias créés automatiquement par les scripts bash d'installation)
+------------------
+alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'
+alias tb3_r200_default='roslaunch realsense_camera r200_nodelet_default.launch'
 
+Pour tester la caméra
+---------------------
+Côté PC :
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande roscore
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande rqt_image_view (puis choisir le topic image/.../compressed par exemple)
 
+Côté waffle :
+1 terminal, puis lancer la commande tb3_r200_default
 
+Pour tester la téléopération
+----------------------------
+Côté PC :
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande roscore
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande tb3_bringup
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande tb3_teleop
 
+Côté waffle :
+1 terminal, puis lancer la commande tb3_bringup
 
+Pour tester la visualisation des infos lidar dans RVIZ
+------------------------------------------------------
+Côté PC :
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande roscore
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande tb3_bringup
+1 terminal, puis lancer la commande tb3_set_env_waffle puis lancer la commande tb3_rviz_model
+
+Côté waffle :
+1 terminal, puis lancer la commande tb3_bringup
 
 
