@@ -1,0 +1,60 @@
+Arduino :
+--------
+
+burger
+------
+export OPENCR_PORT=/dev/ttyACM0
+$ export OPENCR_MODEL=burger
+$ rm -rf ./opencr_update.tar.bz2
+$ wget https://github.com/ROBOTIS-GIT/OpenCR/raw/master/arduino/opencr_release/shell_update/opencr_update.tar.bz2 && tar -xvf opencr_update.tar.bz2 && cd ./opencr_update && ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr && cd ..
+
+waffle
+------
+export OPENCR_PORT=/dev/ttyACM0
+$ export OPENCR_MODEL=waffle
+$ rm -rf ./opencr_update.tar.bz2
+$ wget https://github.com/ROBOTIS-GIT/OpenCR/raw/master/arduino/opencr_release/shell_update/opencr_update.tar.bz2 && tar -xvf opencr_update.tar.bz2 && cd ./opencr_update && ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr && cd ..
+
+burger rp3:
+-----------
+
+sudo apt-get update
+sudo apt-get upgrade
+wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic_rp3.sh && chmod 755 ./install_ros_kinetic_rp3.sh && bash ./install_ros_kinetic_rp3.sh
+
+cd ~/catkin_ws/src
+git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+
+cd ~/catkin_ws/src/turtlebot3
+sudo rm -r turtlebot3_description/ turtlebot3_teleop/ turtlebot3_navigation/ turtlebot3_slam/ turtlebot3_example/
+
+ sudo apt-get install ros-kinetic-rosserial-python ros-kinetic-tf
+
+source /opt/ros/kinetic/setup.bash
+cd ~/catkin_ws && catkin_make -j1
+
+rosrun turtlebot3_bringup create_udev_rules
+
+waffle intel joule:
+-------------------
+
+sudo apt-get update
+sudo apt-get upgrade
+wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
+
+cd ~/catkin_ws/src
+git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+
+cd ~/catkin_ws/src/turtlebot3
+sudo rm -r turtlebot3_description/ turtlebot3_teleop/ turtlebot3_navigation/ turtlebot3_slam/ turtlebot3_example/
+
+sudo apt-get install ros-kinetic-rosserial-python ros-kinetic-tf
+
+cd ~/catkin_ws && catkin_make
+
+rosrun turtlebot3_bringup create_udev_rules
+
