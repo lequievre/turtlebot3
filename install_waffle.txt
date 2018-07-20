@@ -561,3 +561,22 @@ Côté waffle :
 1 terminal, puis lancer la commande tb3_bringup
 
 
+
+=============================================================================
+=============================================================================
+
+List of waffle names and ip address :
+-------------------------------------
+
+PC remote -> 10.42.0.1
+donatello -> 10.42.0.3
+leonardo -> 10.42.0.4
+raphael -> 10.42.0.5
+michelangelo -> 10.42.0.6
+splinter -> 10.42.0.7
+casey -> 10.42.0.8
+
+Name of wifi -> wifininja (name of SSID)
+
+
+
