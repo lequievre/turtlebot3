@@ -2,7 +2,7 @@
 # Laurent LEQUIEVRE
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
-# PART 1
+# PART 1 - WAFFLE
 
 #read -n1 -rsp $'Press any key to update and upgrade linux or Ctrl+C to exit...\n'
 

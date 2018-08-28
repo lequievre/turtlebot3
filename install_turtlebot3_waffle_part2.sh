@@ -2,7 +2,7 @@
 # Laurent LEQUIEVRE
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
-# PART 2
+# PART 2 - WAFFLE
 
 #Ip ros hostname and ros master uri and turtlebot3 model
 export IP_RHN=10.42.0.5
