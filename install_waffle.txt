@@ -441,22 +441,22 @@ Nom -> raphael, nom de l'ordinateur -> raphael, mot de passe -> sigma -> continu
 
 3- Une fois ubuntu installé sur le waffle
 se connecter avec le wifininja (qui partage la connexion internet du PC remote via le wifi)
-sudo apt-get git
-sudo apt-get firefox
+sudo apt-get install git
+sudo apt-get install firefox
 
 cd ~
 mkdir install_turtlebot3
 cd install_turtlebot3
 git clone https://github.com/lequievre/turtlebot3.git
 cd turtlebot3
-source install_turtlebot3_part1.sh
+source install_turtlebot3_waffle_part1.sh
 
 puis reboot du turtlebot3 (choisir l'interface gnome metacompiz)
 
 cd ~/install_turtlebot3/turtlebot3
-editer le fichier 'install_turtlebot3_part2.sh' et adapter l'adresse IP du waffle (variable IP_RHN)
-nano install_turtlebot3_part2.sh
-source install_turtlebot3_part2.sh
+editer le fichier 'install_turtlebot3_waffle_part2.sh' et adapter l'adresse IP du waffle (variable IP_RHN)
+nano install_turtlebot3_waffle_part2.sh
+source install_turtlebot3_waffle_part2.sh
 
 4- Editer le .bashrc
 cd ~
@@ -575,6 +575,8 @@ raphael -> 10.42.0.5
 michelangelo -> 10.42.0.6
 splinter -> 10.42.0.7
 casey -> 10.42.0.8
+Leatherhead -> 10.42.0.9
+renet -> 10.42.0.10
 
 Name of wifi -> wifininja (name of SSID)
 
