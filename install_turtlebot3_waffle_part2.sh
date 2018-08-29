@@ -24,7 +24,7 @@ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 #Add ROS_MASTER_URI and ROS_HOSTNAME
 echo "export ROS_MASTER_URI=http://$IP_RMU:11311" >> ~/.bashrc
-echo "export ROS_HOST_NAME=$IP_RHN" >> ~/.bashrc
+echo "export ROS_HOSTNAME=$IP_RHN" >> ~/.bashrc
 echo "export TURTLEBOT3_MODEL=$T_MODEL" >> ~/.bashrc
 echo "alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'" >> ~/.bashrc
 echo "alias tb3_r200_default='roslaunch realsense_camera r200_nodelet_default.launch'" >> ~/.bashrc
