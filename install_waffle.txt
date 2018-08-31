@@ -421,10 +421,26 @@ source install_turtlebot3_part2.sh
 Installer un Waffle de A à Z (Avec l'aide de scripts bash)
 ===============================================================
 
-1- Créer une clé USB bootable avec Ubuntu 16.04 Intel Joule
+1- 
+Pour le waffle :
+***************
+Créer une clé USB bootable avec Ubuntu 16.04 Intel Joule
 creer une clé USB bootable avec l'outil "création de disque de démarrage" -> Menu Système/Administration/Créateur de disque de démarrage
 cf : http://emanual.robotis.com/docs/en/platform/turtlebot3/joule_setup/#install-linux-ubuntu
 Télécharger ubuntu 16.04 en cliquant sur le lien : Download Ubuntu 16.04 for Intel® Joule™
+
+Pour le burger : 
+***************
+(mettre la carte SD dans le porte carte)
+Applications/Accessoires/Disques  (qui est équivalent à la commande : sudo gnome-disks)
+-> Sélectionner le drive SD
+-> Cliquer sur le bouton de paramétrage en haut à droite
+-> Choisir l'option 'Restaurer l'image disque ...'
+-> Choisir le fichier /home/laurent/install_turtlebot3/ubuntu_16_04_raspberry_pi
+ 'ubuntu-mate-16.04.2-desktop-armhf-raspberry-pi.img.xz'
+
+Mettre la carte SD côté burger et démarrer le burger
+Attention : lors de l'installation penser à choisir la connexion 'wifi' (sinon après faut la configurer à la main ...)
 
 
 2- Brancher la clé USB sur le waffle et redémarrer le waffle (pour lancer l'installation d'ubuntu)
@@ -577,6 +593,8 @@ splinter -> 10.42.0.7
 casey -> 10.42.0.8
 Leatherhead -> 10.42.0.9
 renet -> 10.42.0.10
+pete -> 10.42.0.11
+
 
 Name of wifi -> wifininja (name of SSID)
 
