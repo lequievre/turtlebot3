@@ -444,6 +444,9 @@ Attention : lors de l'installation penser à choisir la connexion 'wifi' (sinon 
 
 
 2- Brancher la clé USB sur le waffle et redémarrer le waffle (pour lancer l'installation d'ubuntu)
+BRANCHER UNIQUEMENT UN CLAVIER + CLE USB
+F7 bios
+Boot Option Menu -> choisir EFI USB Device
 NE LAISSER QUE LA SOURIS SI MANQUE DE PORT USB
 Erase disk and  install Ubuntu -> Continue
 Select Drive -> MMC/SD Card #2(mmcblk1) 15.7 Go MMC 016G32-> Install Now
@@ -517,8 +520,17 @@ rosdep update
 cd ~/catkin_ws
 rosdep -y install --from-paths src --ignore-src
 
+reboot
+
 cd ~/catkin_ws
+rm -r build devel
 catkin_make
+source devel/setup.bash
+
+reboot
+
+sudo modprobe uvcvideo
+
 
 
 7- faire les tests
@@ -576,8 +588,6 @@ Côté PC :
 Côté waffle :
 1 terminal, puis lancer la commande tb3_bringup
 
-
-
 =============================================================================
 =============================================================================
 
@@ -588,15 +598,13 @@ PC remote -> 10.42.0.1
 donatello -> 10.42.0.3
 leonardo -> 10.42.0.4
 raphael -> 10.42.0.5
-michelangelo -> 10.42.0.6
+michelangelo -> 10.42.0.6 (en panne)
 splinter -> 10.42.0.7
 casey -> 10.42.0.8
 Leatherhead -> 10.42.0.9
 renet -> 10.42.0.10
 pete -> 10.42.0.11
-
+krang -> 10.42.0.12
 
 Name of wifi -> wifininja (name of SSID)
-
-
 
