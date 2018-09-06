@@ -46,3 +46,12 @@ cd opencr_update
 wget https://github.com/ROBOTIS-GIT/OpenCR/raw/develop/arduino/opencr_release/shell_update/opencr_update.tar.bz2 && tar -xvf opencr_update.tar.bz2 && cd ./opencr_update && ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr && cd ..
 cd ~
 
+#Disable WIFI Power Save
+#=======================
+#A backup for security
+sudo cp /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf.bak
+#Replace 3 by 0
+sudo sed -i -e 's/3/0/' /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+#Reboot NetworkManager
+sudo systemctl restart NetworkManager
+
