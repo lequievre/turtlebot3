@@ -608,3 +608,23 @@ krang -> 10.42.0.12
 
 Name of wifi -> wifininja (name of SSID)
 
+====================================================================================
+PERTE DU WIFI AU BOUT DE 10/15 MINUTES
+====================================================================================
+
+sudo cp /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf.bak
+
+sudo nano /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+change wifi.powersave = 3 to 0
+
+[connection]
+wifi.powersave = 0
+
+Save file
+
+Reboot Network Manager
+sudo systemctl restart NetworkManager
+
+====================================================================================
+
+
