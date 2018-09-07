@@ -1,0 +1,144 @@
+alias ajoutés dans le '.bashrc' :
+=================================
+
+alias linux côté turtlebot :
+---------------------------
+alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'
+alias tb3_r200_default='roslaunch realsense_camera r200_nodelet_default.launch'
+
+alias linux côté PC Remote :
+---------------------------
+alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'
+alias tb3_set_env_waffle='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle'
+alias tb3_print_env='echo "ROS_MASTER_URI=$ROS_MASTER_URI" && echo "ROS_HOSTNAME=$ROS_HOSTNAME" && echo "TURTLEBOT3_MODEL=$TURTLEBOT3_MODEL"'
+alias tb3_bringup='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_bringup turtlebot3_remote.launch'
+alias tb3_rviz_model='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosrun rviz rviz -d `rospack find turtlebot3_description`/rviz/model.rviz'
+alias tb3_rviz_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosrun rviz rviz -d `rospack find turtlebot3_example`/rviz/turtlebot3_interactive.rviz'
+alias tb3_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_example interactive_markers.launch'
+alias tb3_stop='source ~/turtlebot3/send_stop.sh' 
+alias tb3_teleop='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch'
+
+==========================================================================================================================================
+==========================================================================================================================================
+==========================================================================================================================================
+POUR LES TESTS LE ROSCORE DOIT ETRE LANCE EN PREMIER !!!!
+==========================================================================================================================================
+
+Test caméra realsense (Waffle) :
+===============================
+côté turtlebot :
+---------------
+lancer un terminal >
+tb3_r200_default
+
+côté PC remote:
+---------------
+lancer un terminal >
+tb3_set_env_waffle 
+roscore
+
+lancer un terminal >
+tb3_set_env_waffle 
+rqt_image_view
+(choisir le topic '/camera/color/image_raw/compressed')
+
+
+Test Nuage de points Lidar dans RVIZ :
+=====================================
+côté turtlebot :
+---------------
+lancer un terminal >
+tb3_bringup
+
+côté PC remote:
+---------------
+lancer un terminal >
+tb3_set_env_waffle 
+roscore
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_bringup
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_rviz_model
+
+Test téléopération :
+===================
+côté turtlebot :
+---------------
+lancer un terminal >
+tb3_bringup
+
+côté PC remote:
+---------------
+lancer un terminal >
+tb3_set_env_waffle 
+roscore
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_bringup
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_teleop
+
+Test IR de la camera realsense (Waffle) :
+========================================
+côté turtlebot :
+---------------
+lancer un terminal >
+roslaunch realsense_camera r200_nodelet_rgbd.launch
+
+côté PC remote:
+---------------
+lancer un terminal >
+tb3_set_env_waffle 
+roscore
+
+lancer un terminal >
+tb3_set_env_waffle
+rviz
+Mettre dans "Global Options" le paramètre "Fixed Frame" à "camera_depth_frame"
+Cliquer sur le bouton "Add" en bas et choisir "PointCloud2"
+Mettre le "Topic" de "PointCloud2" à "/camera/depth/points"
+Mettre le "Position Transformer" à "XYZ"
+Mettre le "Color Transformer" à "AxisColor"
+Mettre "Axis" à "X"
+
+Test du déplacement en utilisant les "interactives markers" sous Rviz :
+======================================================================
+côté turtlebot :
+---------------
+tb3_bringup
+
+côté PC remote:
+---------------
+lancer un terminal >
+tb3_set_env_waffle 
+roscore
+
+lancer un terminal >
+tb3_set_env_waffle 
+tb3_bringup
+
+lancer un terminal >
+tb3_set_env_waffle 
+tb3_markers
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_rviz_markers
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_stop
+
+côté turtlebot :
+---------------
+lancer un terminal >
+tb3_bringup
+
+
