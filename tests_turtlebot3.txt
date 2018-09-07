@@ -1,3 +1,7 @@
+Laurent LEQUIEVRE
+UMR 6602 - Institut Pascal
+laurent.lequievre@uca.fr
+
 alias ajoutés dans le '.bashrc' :
 =================================
 
