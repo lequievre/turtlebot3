@@ -146,3 +146,52 @@ lancer un terminal >
 tb3_bringup
 
 
+==========================================================================================
+SIMULATION SUR PC REMOTE
+===========================================================================================
+
+Avec RVIZ
+----------
+côté PC remote:
+---------------
+Il faut installer le paquet "turtlebot3_simulations" dans son workspace catkin :
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+puis faire un "catkin_make" de son workspace.
+
+lancer un terminal >
+tb3_set_env_waffle 
+roscore
+
+lancer un terminal >
+tb3_set_env_waffle
+roslaunch turtlebot3_fake turtlebot3_fake.launch
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_teleop
+
+Avec Gazebo
+-----------
+côté PC remote:
+---------------
+lancer un terminal >
+tb3_set_env_waffle 
+cd turtlebot3
+cd catkin_ws
+source devel/setup.bash
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_teleop
+
+On peut ajouter un node d'évitement d'obstacle (qui ne fonctionne pas bien !)
+lancer un terminal >
+tb3_set_env_waffle
+roslaunch turtlebot3_gazebo turtlebot3_simulation.launch
+
+On peut aussi lancer RVIZ pour voir le tout (robot + scans)
+lancer un terminal >
+tb3_set_env_waffle
+roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
+
