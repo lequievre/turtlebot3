@@ -195,3 +195,18 @@ lancer un terminal >
 tb3_set_env_waffle
 roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 
+SLAM
+----
+
+lancer un terminal >
+tb3_set_env_waffle
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+
+lancer un terminal >
+tb3_set_env_waffle
+roslaunch turtlebot3_slam turtlebot3_slam.launch
+
+lancer un terminal >
+tb3_set_env_waffle
+tb3_teleop
+
