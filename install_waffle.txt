@@ -1,7 +1,6 @@
-Yoann RATAO
 Laurent LEQUIEVRE
+Research Engineer, CNRS (France)
 Institut Pascal UMR6602
-yoann.ratao@uca.fr
 laurent.lequievre@uca.fr
 
 suivre dans l'ordre :
@@ -626,5 +625,25 @@ Reboot Network Manager
 sudo systemctl restart NetworkManager
 
 ====================================================================================
+
+Configuration Wifi en mode Ad-Hoc automatisé (côté pc remote et burger/waffle) :
+
+Il faut modifier (en sudo) le fichier /etc/network/interfaces en ajoutant ceci :
+
+auto wlan0
+iface wlan0 inet static
+   address 192.168.0.1
+   netmask 255.255.255.0
+   wireless-chanel 7
+   wireless-essid  wifininja
+   wireless-mode ad-hoc
+
+Ici on est en mode ad-hoc et en Adresse IP fixe.
+
+La commande pour lister les wifi scannés :
+
+iwlist wlan0 scan
+
+===================================================================================
 
 
