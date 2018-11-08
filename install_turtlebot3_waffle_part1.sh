@@ -1,5 +1,6 @@
 #!/bin/sh
 # Laurent LEQUIEVRE
+# Research Engineer, CNRS (France)
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
 # PART 1 - WAFFLE

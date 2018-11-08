@@ -1,6 +1,7 @@
 #!/bin/sh
 # Laurent LEQUIEVRE
 # laurent.lequievre@uca.fr
+# Research Engineer, CNRS (France)
 # UMR 6602 - Institut Pascal
 # source simple_test_param_type_turtlebot3.sh waffle
 # or

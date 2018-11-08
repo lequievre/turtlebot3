@@ -1,7 +1,6 @@
 #!/bin/sh
-# Yoann RATAO
-# yoann.ratao@uca.fr
 # Laurent LEQUIEVRE
+# Research Engineer, CNRS (France)
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
 
