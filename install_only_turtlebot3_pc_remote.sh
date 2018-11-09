@@ -18,6 +18,7 @@ cd ~/turtlebot3
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/send_stop.sh
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_turtlebot3.sh
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_local_turtlebot3.sh
+wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/simple_tests_on_turtlebot3.txt
 
 echo "alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'" >> ~/.bashrc
 echo "alias tb3_set_env_waffle='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle'" >> ~/.bashrc
