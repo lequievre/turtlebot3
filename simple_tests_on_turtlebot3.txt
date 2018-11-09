@@ -46,9 +46,12 @@ To use ROS with turtlebot3, you have to define at least 2 linux environment vari
 ROS_MASTER_URI -> is a required setting that tells nodes the ip address where they can locate the master (roscore).
 TURTLEBOT3_MODEL -> to specify the model name of TurtleBot3 (burger or waffle).
 
-1- If you want to run these simple tests locally on your laptop : You must set the ROS_MASTER_URI environment variable to 'localhost' (eq 127.0.0.1). That's exactly what the command tb3_set_env_local_burger does (in addition set TURTLEBOT3_MODEL to burger).
+1- If you want to run these simple tests locally on your laptop : 
+You must set the ROS_MASTER_URI environment variable to 'localhost' (eq 127.0.0.1). 
+That's exactly what the command tb3_set_env_local_burger does (in addition set TURTLEBOT3_MODEL to burger).
 
-2- The command tb3_set_env_burger set the ROS_MASTER_URI to a fixed ip address 192.168.0.1 (It's mean that your laptop ip address on which you launch the roscore command must be set to 192.168.0.1). It is necessary when you want to communicate with a real robot burger/waffle by using a wifi communication (for example : the robot burger/waffle has an ip set to 192.168.0.8 and need to communicate with roscore launched on a laptop defined by the ip 192.168.0.1).
+2- The command tb3_set_env_burger set the ROS_MASTER_URI to a fixed ip address 192.168.0.1 (It's mean that your laptop ip address on which you launch the roscore command must be set to 192.168.0.1). 
+It is necessary when you want to communicate with a real robot burger/waffle by using a wifi communication (for example : the robot burger/waffle has an ip set to 192.168.0.8 and need to communicate with roscore launched on a laptop defined by the ip 192.168.0.1).
 
 3- There are the same commands for the waffle model -> tb3_set_env_local_waffle and tb3_set_env_waffle
 
