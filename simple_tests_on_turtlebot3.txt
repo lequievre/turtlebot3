@@ -199,4 +199,5 @@ Remark (about ros indigo and gazebo 2) :
 To use with ros indigo ang gazebo 2.2.6, you need to comment :
 -> the line 23 of file ~/turtlebot3/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_world.world :
 <!--<use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>-->
-
+-> the line 59 of file ~/turtlebot3/catkin_ws/src/turtlebot3/turtlebot3_description/urdf/turtlebot3_burger.gazebo.xacro :
+<!--<publishTf>true</publishTf>-->
