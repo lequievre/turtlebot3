@@ -194,3 +194,9 @@ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 (LaserScan/Topic -> /scan)
 (topic /scan send messages of sensor_msgs/LaserScan)
 
+Remark (about ros indigo and gazebo 2) :
+--------------------------------------
+To use with ros indigo ang gazebo 2.2.6, you need to comment :
+-> the line 23 of file ~/turtlebot3/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_world.world :
+<!--<use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>-->
+
