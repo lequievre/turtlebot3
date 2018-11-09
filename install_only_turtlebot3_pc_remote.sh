@@ -29,6 +29,8 @@ cd ~/turtlebot3/catkin_ws && catkin_make
 if [ "$1" == "indigo" ]; then
  cd ~/turtlebot3/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds
  replace-line-in-file "turtlebot3_world.world" 23 "<!--<use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>-->"
+ cd ~/turtlebot3/catkin_ws/src/turtlebot3_description/urdf
+ replace-line-in-file "turtlebot3_burger.gazebo.xacro" 59 "<!--<publishTf>true</publishTf>-->"
  cd ~/turtlebot3
 else
  echo "Kinetic Version !"
