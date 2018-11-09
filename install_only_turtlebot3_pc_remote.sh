@@ -4,6 +4,17 @@
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
 
+function replace-line-in-file() {
+    local file="$1"
+    local line_num="$2"
+    local replacement="$3"
+
+    # Escape backslash, forward slash and ampersand for use as a sed replacement.
+    replacement_escaped=$( echo "$replacement" | sed -e 's/[\/&]/\\&/g' )
+
+    sed -i "${line_num}s/.*/$replacement_escaped/" "$file"
+}
+
 
 #Install turtlebot3 dependent packages
 cd ~
@@ -13,6 +24,13 @@ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 cd ~/turtlebot3/catkin_ws && catkin_make
+
+#Modify world file to be compatible with indigo and gazebo 2
+if [ "$1" == "indigo" ]; then
+ replace-line-in-file "test.world" 23 "<!--<use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>-->"
+else
+ echo "Kinetic Version !"
+fi
 
 #Get some useful script files
 cd ~/turtlebot3
