@@ -27,7 +27,9 @@ cd ~/turtlebot3/catkin_ws && catkin_make
 
 #Modify world file to be compatible with indigo and gazebo 2
 if [ "$1" == "indigo" ]; then
- replace-line-in-file "test.world" 23 "<!--<use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>-->"
+ cd ~/turtlebot3/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds
+ replace-line-in-file "turtlebot3_world.world" 23 "<!--<use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>-->"
+ cd ~/turtlebot3
 else
  echo "Kinetic Version !"
 fi
