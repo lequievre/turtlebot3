@@ -14,12 +14,14 @@ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 cd ~/turtlebot3/catkin_ws && catkin_make
 
+#Get some useful script files
 cd ~/turtlebot3
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/send_stop.sh
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_turtlebot3.sh
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_local_turtlebot3.sh
 wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/simple_tests_on_turtlebot3.txt
 
+#Create some useful alias to use in terminal window
 echo "alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'" >> ~/.bashrc
 echo "alias tb3_set_env_waffle='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle'" >> ~/.bashrc
 echo "alias tb3_set_env_local_burger='source ~/turtlebot3/set_ros_env_local_turtlebot3.sh burger'" >> ~/.bashrc
@@ -32,4 +34,5 @@ echo "alias tb3_stop='source ~/turtlebot3/send_stop.sh'" >> ~/.bashrc
 echo "alias tb3_teleop='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch'" >> ~/.bashrc
 echo "alias tb3_print_env='echo \"ROS_MASTER_URI=\$ROS_MASTER_URI\" && echo \"ROS_HOSTNAME=\$ROS_HOSTNAME\" && echo \"TURTLEBOT3_MODEL=\$TURTLEBOT3_MODEL\"'" >> ~/.bashrc
 
+#Update current terminal window with new alias added before
 source ~/.bashrc
