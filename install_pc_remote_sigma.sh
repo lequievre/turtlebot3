@@ -8,6 +8,18 @@
 sudo apt-get update
 sudo apt-get upgrade
 
+#Create user: student, pwd: student, group: students
+#group_name="students"
+#user_name="student"
+#pwd_user="student"
+
+#echo "Create user: $user_name with group: $group_name with pwd: $pwd_user"
+#sudo addgroup $group_name
+#sudo useradd $user_name -s /bin/bash -m -G $group_name
+#echo $user_name:$pwd_user | sudo chpasswd
+#echo "Change user to : $user_name"
+#su $user_name
+
 #Install ros kinetic
 cd ~
 mkdir install_ros_kinetic
@@ -44,6 +56,12 @@ sudo apt-get install synaptic
 sudo apt-get install git
 git config --global http.sslverify "false"
 sudo apt-get install gnome-session-flashback
+
+#Install codeblocks
+sudo apt-get install codeblocks
+
+#Install arduino
+sudo apt-get install arduino
 
 #Install turtlebot3 dependent packages
 cd ~
