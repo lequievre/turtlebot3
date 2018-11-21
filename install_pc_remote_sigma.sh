@@ -64,7 +64,7 @@ echo "Change user to : $user_name, please type pwd of $user_name ?"
 su $user_name
 
 #Install turtlebot3 dependent packages
-cd ~
+cd
 mkdir -p turtlebot3/catkin_ws/src
 cd turtlebot3/catkin_ws/src
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
