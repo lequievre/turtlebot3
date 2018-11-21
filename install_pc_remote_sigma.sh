@@ -8,18 +8,6 @@
 sudo apt-get update
 sudo apt-get upgrade
 
-#Create user: student, pwd: student, group: students
-#group_name="students"
-#user_name="student"
-#pwd_user="student"
-
-#echo "Create user: $user_name with group: $group_name with pwd: $pwd_user"
-#sudo addgroup $group_name
-#sudo useradd $user_name -s /bin/bash -m -G $group_name
-#echo $user_name:$pwd_user | sudo chpasswd
-#echo "Change user to : $user_name"
-#su $user_name
-
 #Install ros kinetic
 cd ~
 mkdir install_ros_kinetic
@@ -62,6 +50,18 @@ sudo apt-get install codeblocks
 
 #Install arduino
 sudo apt-get install arduino
+
+#Create user: student, pwd: student, group: students
+group_name="students"
+user_name="student"
+pwd_user="student"
+
+echo "Create user: $user_name with group: $group_name with pwd: $pwd_user"
+sudo addgroup $group_name
+sudo useradd $user_name -s /bin/bash -m -G $group_name
+echo $user_name:$pwd_user | sudo chpasswd
+echo "Change user to : $user_name, please type pwd of $user_name ?"
+su $user_name
 
 #Install turtlebot3 dependent packages
 cd ~
