@@ -61,7 +61,7 @@ sudo addgroup $group_name
 sudo useradd $user_name -s /bin/bash -m -G $group_name
 echo $user_name:$pwd_user | sudo chpasswd
 echo "Change user to : $user_name, please type pwd of $user_name ?"
-su $user_name
+#su $user_name
 
 #Install student
 echo "Please pwd of $user_name ?"
