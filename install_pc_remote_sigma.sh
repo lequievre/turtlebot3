@@ -66,7 +66,7 @@ echo "Change user to : $user_name, please type pwd of $user_name ?"
 
 #Install student
 echo "Please pwd of $user_name ?"
-su - "$user_name" -p $pwd_user -c "source /opt/ros/kinetic/setup.bash; 
+su - "$user_name" -c "source /opt/ros/kinetic/setup.bash; 
 sudo rosdep init; rosdep update; echo \"source /opt/ros/kinetic/setup.bash\" >> ~/.bashrc; 
 echo \"export ROS_MASTER_URI=http://localhost:11311\" >> ~/.bashrc; echo \"export ROS_HOSTNAME=localhost\" >> ~/.bashrc; source ~/.bashrc; cd ~; mkdir -p turtlebot3/catkin_ws/src; cd turtlebot3/catkin_ws/src; 
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git; 
