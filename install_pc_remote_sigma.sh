@@ -4,12 +4,10 @@
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
 
-# Set install mode in silent mode (no need to answer yes at install questions)
-sudo export DEBIAN_FRONTEND=noninteractive
 
 #Update and Upgrade Linux
-sudo apt-get update -y
-sudo apt-get upgrade -y
+sudo apt-get update --yes
+sudo apt-get upgrade --yes
 
 #Install ros kinetic
 cd ~
@@ -18,44 +16,41 @@ cd install_ros_kinetic
 wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
 
 #Install ros dependent packages
-sudo apt-get install -y ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
+sudo apt-get install --yes ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
 
 #Install others ros packages
-sudo apt-get install -y ros-kinetic-moveit
-sudo apt-get install -y ros-kinetic-control-msgs
-sudo apt-get install -y ros-kinetic-rqt-controller-manager
-sudo apt-get install -y ros-kinetic-gazebo-ros-pkgs
-sudo apt-get install -y ros-kinetic-gazebo-plugins
-sudo apt-get install -y ros-kinetic-gazebo-ros-control
-sudo apt-get install -y ros-kinetic-ros-control
-sudo apt-get install -y ros-kinetic-joint-state-publisher
-sudo apt-get install -y ros-kinetic-joint-state-controller
-sudo apt-get install -y ros-kinetic-position-controllers
+sudo apt-get install --yes ros-kinetic-moveit
+sudo apt-get install --yes ros-kinetic-control-msgs
+sudo apt-get install --yes ros-kinetic-rqt-controller-manager
+sudo apt-get install --yes ros-kinetic-gazebo-ros-pkgs
+sudo apt-get install --yes ros-kinetic-gazebo-plugins
+sudo apt-get install --yes ros-kinetic-gazebo-ros-control
+sudo apt-get install --yes ros-kinetic-ros-control
+sudo apt-get install --yes ros-kinetic-joint-state-publisher
+sudo apt-get install --yes ros-kinetic-joint-state-controller
+sudo apt-get install --yes ros-kinetic-position-controllers
 
 #Initialise rosdep
 sudo rosdep init
 rosdep update
 
 #Install meshlab 
-sudo apt-get install -y meshlab
+sudo apt-get install --yes meshlab
 
 #Install tools for urdf
-sudo apt-get install -y liburdfdom-tools
+sudo apt-get install --yes liburdfdom-tools
 
 #Install synaptic && git && gnome-session-flashback
-sudo apt-get install -y synaptic
-sudo apt-get install -y git
+sudo apt-get install --yes synaptic
+sudo apt-get install --yes git
 git config --global http.sslverify "false"
-sudo apt-get install -y gnome-session-flashback
+sudo apt-get install --yes gnome-session-flashback
 
 #Install codeblocks
-sudo apt-get install -y codeblocks
+sudo apt-get install --yes codeblocks
 
 #Install arduino
-sudo apt-get install -y arduino
-
-#Set to dialog mode
-sudo export DEBIAN_FRONTEND=dialog
+sudo apt-get install --yes arduino
 
 #Create user: student, pwd: student, group: students
 group_name="students"
@@ -71,7 +66,7 @@ echo "Change user to : $user_name, please type pwd of $user_name ?"
 
 #Install student
 echo "Please pwd of $user_name ?"
-su - "$user_name" -c "source /opt/ros/kinetic/setup.bash; 
+su - "$user_name" -p $pwd_user -c "source /opt/ros/kinetic/setup.bash; 
 sudo rosdep init; rosdep update; echo \"source /opt/ros/kinetic/setup.bash\" >> ~/.bashrc; 
 echo \"export ROS_MASTER_URI=http://localhost:11311\" >> ~/.bashrc; echo \"export ROS_HOSTNAME=localhost\" >> ~/.bashrc; source ~/.bashrc; cd ~; mkdir -p turtlebot3/catkin_ws/src; cd turtlebot3/catkin_ws/src; 
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git; 
