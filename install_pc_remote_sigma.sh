@@ -65,7 +65,15 @@ echo "Change user to : $user_name, please type pwd of $user_name ?"
 
 #Install student
 echo "Please pwd of $user_name ?"
-su - "$user_name" -c "source /opt/ros/kinetic/setup.bash; sudo rosdep init; rosdep update; echo \"source /opt/ros/kinetic/setup.bash\" >> ~/.bashrc; echo \"export ROS_MASTER_URI=http://localhost:11311\" >> ~/.bashrc; echo \"export ROS_HOSTNAME=localhost\" >> ~/.bashrc; source ~/.bashrc; cd ~; mkdir -p turtlebot3/catkin_ws/src; cd turtlebot3/catkin_ws/src; git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git; git clone https://github.com/ROBOTIS-GIT/turtlebot3.git; git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git; cd ~/turtlebot3/catkin_ws && catkin_make; cd ~/turtlebot3; wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/send_stop.sh; wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_turtlebot3.sh; wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_local_turtlebot3.sh; echo \"alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'\" >> ~/.bashrc; 
+su - "$user_name" -c "source /opt/ros/kinetic/setup.bash; 
+sudo rosdep init; rosdep update; echo \"source /opt/ros/kinetic/setup.bash\" >> ~/.bashrc; 
+echo \"export ROS_MASTER_URI=http://localhost:11311\" >> ~/.bashrc; echo \"export ROS_HOSTNAME=localhost\" >> ~/.bashrc; source ~/.bashrc; cd ~; mkdir -p turtlebot3/catkin_ws/src; cd turtlebot3/catkin_ws/src; 
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git; 
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git; 
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git; 
+cd ~/turtlebot3/catkin_ws && catkin_make; cd ~/turtlebot3; 
+wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/send_stop.sh; wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_turtlebot3.sh; 
+wget https://raw.githubusercontent.com/lequievre/turtlebot3/master/set_ros_env_local_turtlebot3.sh; echo \"alias tb3_set_env_burger='source ~/turtlebot3/set_ros_env_turtlebot3.sh burger'\" >> ~/.bashrc; 
 echo \"alias tb3_set_env_waffle='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle'\" >> ~/.bashrc; 
 echo \"alias tb3_set_env_waffle_pi='source ~/turtlebot3/set_ros_env_turtlebot3.sh waffle_pi'\" >> ~/.bashrc; 
 echo \"alias tb3_set_env_local_burger='source ~/turtlebot3/set_ros_env_local_turtlebot3.sh burger'\" >> ~/.bashrc; 
