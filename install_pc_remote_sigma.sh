@@ -4,6 +4,9 @@
 # laurent.lequievre@uca.fr
 # UMR 6602 - Institut Pascal
 
+# Set install mode in silent mode (no need to answer yes at install questions)
+sudo export DEBIAN_FRONTEND=noninteractive
+
 #Update and Upgrade Linux
 sudo apt-get update -y
 sudo apt-get upgrade -y
@@ -50,6 +53,9 @@ sudo apt-get install -y codeblocks
 
 #Install arduino
 sudo apt-get install -y arduino
+
+#Set to dialog mode
+sudo export DEBIAN_FRONTEND=dialog
 
 #Create user: student, pwd: student, group: students
 group_name="students"
