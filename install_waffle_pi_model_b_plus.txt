@@ -1,0 +1,76 @@
+Yoann RATAO
+yoann.ratao@uca.fr
+Laurent LEQUIEVRE
+laurent.lequievre@uca.fr
+UMR 6602 - Institut Pascal
+MACCS Team, CNRS (France)
+
+1-Install Linux based on Raspbian.
+
+Download : http://www.robotis.com/service/download.php?no=730
+
+file : image_rpi_20180712.img.zip
+
+2-Install Etcher SD card image utility.
+
+Download for linux x64 : https://www.balena.io/etcher/
+
+file : balena-etcher-electron-1.4.8-linux-x64.
+
+unzip file.
+launch file balena-etcher-electron-1.4.8-x86_64.AppImage
+Select image (image_rpi_20180712.img.zip)
+Flash!
+
+(if needed to create or delete partition, we can launch the tools gparted in sudo mode).
+
+3- Introduce the sdcard into the raspberry pi card
+
+4- Change raspberry configuration
+click on raspberry menu (top left)
+Preferences -> Raspberry Pi configuration -> Localisation -> Set Timezone -> timezone Area Europe/ Location Paris
+Preferences -> Raspberry Pi configuration -> Localisation -> Set Keyboard -> Layout French , Variant French
+Preferences -> Raspberry Pi configuration -> Localisation -> Set wifi country -> FR France
+
+reboot to take account with the new keyboard layout
+
+5- Change raspberry pi account password
+Preferences -> Raspberry Pi configuration -> System -> Change Password -> sigma
+
+5bis- Synchronize and set computers’ date and time by querying a Network Time Protocol (NTP) server
+
+sudo apt-get install ntpdate
+sudo ntpdate ntp.ubuntu.com
+
+6- Enable wifi
+click to icon right top (multi cross)
+choose wifininja
+helloWorld!
+
+7- Add an alias to .bashrc
+sudo nano .bashrc
+export TURTLEBOT3_MODEL=waffle_pi
+
+export ROS_MASTER_URI=http://ip_of_pc_remote:11311
+export ROS_HOSTNAME=ip_of_raspberry_pi
+
+alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'
+
+remarks :
+=======
+How to change swap memmory :
+sudo nano /etc/dphys-swapfile
+CONF_SWAPFILE=2048
+
+/etc/init.d/dphys-swapfile restart
+How to reboot in command line
+ctrl+alt+F1
+
+
+
+
+
+
+
+
+
