@@ -56,6 +56,9 @@ export ROS_HOSTNAME=ip_of_raspberry_pi
 
 alias tb3_bringup='roslaunch turtlebot3_bringup turtlebot3_robot.launch'
 
+Ctl+O Ctrl+x
+
+source ~/.bashrc
 remarks :
 =======
 How to change swap memmory :
@@ -65,6 +68,30 @@ CONF_SWAPFILE=2048
 /etc/init.d/dphys-swapfile restart
 How to reboot in command line
 ctrl+alt+F1
+
+7- Install camera  (http://emanual.robotis.com/docs/en/platform/turtlebot3/appendix_raspi_cam/)
+sudo raspi-config
+Interfacing Options
+P1 Camera
+Would you like ..... YES
+
+reboot raspberry pi
+
+to test :
+raspistill -v -o test.jpg
+
+Test rpicamera node:
+roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch
+
+To view image:
+rqt_image_view
+
+
+
+
+
+
+
 
 
 
