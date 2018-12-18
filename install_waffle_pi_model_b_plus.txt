@@ -86,18 +86,48 @@ roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch
 To view image:
 rqt_image_view
 
+change user pi password
+=======================
+
+sudo raspi-config
+1. Change User Password
+
+config wifi
+===========
+
+The wifi configuration on raspbian strech is contained in 2 files :
+
+-> /etc/dhcpcd.conf
+
+SSID wifininja_5G
+inform 192.168.0.20
+static routers=192.168.0.1
+noipv6
+
+-> /etc/wpa_supplicant/wpa_supplicant.conf
+
+network={
+    ssid="wifininja_5G"
+    psk="helloSigma!"
+    key_mgmt=WPA-PSK
+}
+
+-> to see which essid we are connected : iwconfig  or iwgetid
+-> address MAC of wifi 5G : 74:da:38:fc:5a:f4
+-> address MAC of wifi 2G : 74:da:38:fc:5a:f3
+
+change .bashrc
+==============
+
+export ROS_MASTER_URI=http://192.168.0.10:11311
+export ROS_HOSTNAME=192.168.0.21 (par exemple)
+export TURTLEBOT3_MODEL=waffle_pi
 
 
+Web site of EDIMAX router configuration
+=======================================
 
-
-
-
-
-
-
-
-
-
-
-
-
+-> connect to wifi wifininja_5G from a laptop (ssid wifininja_5G, mode Client, security WPA et WPA2 personnel, pwd=helloSigma!, ipv4 manual 192.168.0.10, netmask 24, gateway 192.168.0.1, ipv6 ignore)
+-> web address : 192.168.0.1
+user = admin
+pwd = 1234
