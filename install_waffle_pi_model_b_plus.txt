@@ -123,7 +123,6 @@ export ROS_MASTER_URI=http://192.168.0.10:11311
 export ROS_HOSTNAME=192.168.0.21 (par exemple)
 export TURTLEBOT3_MODEL=waffle_pi
 
-
 Web site of EDIMAX router configuration
 =======================================
 
@@ -131,3 +130,21 @@ Web site of EDIMAX router configuration
 -> web address : 192.168.0.1
 user = admin
 pwd = 1234
+
+
+Config wifi pour burger
+=======================
+
+-> modifie le fichier /etc/network/interfaces
+
+auto wlan0
+iface wlan0 inet static
+   address 192.168.0.30
+   netmask 255.255.255.0
+   gateway 192.168.0.1
+   wpa-ssid "wifininja_2.4G"
+   wpa-psk "helloSigma!"
+
+
+sudo /etc/init.d/networking restart
+
