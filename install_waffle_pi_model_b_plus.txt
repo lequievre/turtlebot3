@@ -26,6 +26,10 @@ Flash!
 
 3- Introduce the sdcard into the raspberry pi card
 
+3bis- Expand filesystem to use a whole SD card
+sudo raspi-config
+(select 7 Advanced Options > A1 Expand Filesystem)
+
 4- Change raspberry configuration
 click on raspberry menu (top left)
 Preferences -> Raspberry Pi configuration -> Localisation -> Set Timezone -> timezone Area Europe/ Location Paris
@@ -36,6 +40,9 @@ reboot to take account with the new keyboard layout
 
 5- Change raspberry pi account password
 Preferences -> Raspberry Pi configuration -> System -> Change Password -> sigma
+
+sudo raspi-config
+1- Change User Password
 
 5bis- Synchronize and set computers’ date and time by querying a Network Time Protocol (NTP) server
 
@@ -147,4 +154,49 @@ iface wlan0 inet static
 
 
 sudo /etc/init.d/networking restart
+
+
+Backup SD Card
+=============
+
+sudo fdisk -l
+...
+Disque /dev/mmcblk0 : 14,6 GiB, 15665725440 octets, 30597120 secteurs
+Unités : secteur de 1 × 512 = 512 octets
+Taille de secteur (logique / physique) : 512 octets / 512 octets
+taille d'E/S (minimale / optimale) : 512 octets / 512 octets
+Type d'étiquette de disque : dos
+Identifiant de disque : 0x990ba33e
+
+Périphérique   Amorçage Début      Fin Secteurs Taille Id Type
+/dev/mmcblk0p1           8192    96042    87851  42,9M  c W95 FAT32 (LBA)
+/dev/mmcblk0p2          98304 30597119 30498816  14,6G 83 Linux
+
+sudo dd if=/dev/mmcblk0 of=/home/laurent/turtlebot3/backup_ip_raspbian_image/backup_ip_raspbian_backup.img
+30597120+0 enregistrements lus
+30597120+0 enregistrements écrits
+15665725440 bytes (16 GB, 15 GiB) copied, 359,222 s, 43,6 MB/s
+
+Clone/flash SD CARD
+===================
+
+cd ~/turtlebot3/raspbian_image/
+./balenaEtcher-1.5.45-x64.AppImage
+
+Select image : /home/laurent/turtlebot3/backup_ip_raspbian_image/backup_ip_raspbian_backup.img
+flash
+
+
+
+ssh
+===
+
+ssh pi@192.168.0.x
+pwd = sigma
+
+if pb of key
+rm -f ~/.ssh/known_hosts
+
+
+
 
