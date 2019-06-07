@@ -198,5 +198,15 @@ if pb of key
 rm -f ~/.ssh/known_hosts
 
 
+List of waffle and burgers
+--------------------------
+
+BU#1 -> Casey -> 192.168.0.8
+donatello -> 192.168.0.30
+
+WA#2 -> 192.168.0.26
+
+
+
 
 
