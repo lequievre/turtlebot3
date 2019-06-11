@@ -52,15 +52,23 @@ sudo apt-get install --yes codeblocks
 #Install arduino
 sudo apt-get install --yes arduino
 
+#Install Juan packages
+sudo apt-get install --yes libopencv-dev python-opencv python-matplotlib
+
 #Create user: student, pwd: student, group: students
 group_name="students"
 user_name="student"
 pwd_user="student"
+group_dialout="dialout"
 
 echo "Create user: $user_name with group: $group_name with pwd: $pwd_user"
 sudo addgroup $group_name
 sudo useradd $user_name -s /bin/bash -m -G $group_name
 echo $user_name:$pwd_user | sudo chpasswd
+
+# Add user student to group dialout
+sudo adduser $user_name $group_dialout
+
 echo "Change user to : $user_name, please type pwd of $user_name ?"
 #su $user_name
 
@@ -92,3 +100,5 @@ echo \"alias tb3_markers='source ~/turtlebot3/catkin_ws/devel/setup.bash && rosl
 echo \"alias tb3_stop='source ~/turtlebot3/send_stop.sh'\" >> ~/.bashrc; 
 echo \"alias tb3_teleop='source ~/turtlebot3/catkin_ws/devel/setup.bash && roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch'\" >> ~/.bashrc; 
 echo \"alias tb3_print_env='echo \"ROS_MASTER_URI='\$ROS_MASTER_URI'\" && echo \"ROS_HOSTNAME='\$ROS_HOSTNAME'\" && echo \"TURTLEBOT3_MODEL='\$TURTLEBOT3_MODEL'\"'\" >> ~/.bashrc; source ~/.bashrc"
+
+
