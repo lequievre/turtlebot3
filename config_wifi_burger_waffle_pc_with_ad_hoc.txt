@@ -1,0 +1,79 @@
+pc :
+
+/etc/network/interfaces
+
+auto wlan0
+iface wlan0 inet static
+    address 192.168.0.1
+    network 255.255.255.0
+    wireless-chanel 7
+    wireless-essid wifininja
+    wireless-mode ad-hoc
+
+
+burger :
+
+/etc/network/interfaces
+
+auto wlan0
+iface wlan0 inet static
+    address 192.168.0.30
+    network 255.255.255.0
+    gateway 192.168.0.1
+    wireless-chanel 1
+    wireless-essid wifininja
+    wireless-mode ad-hoc
+
+ssh donatello@192.168.0.30
+pwd = sigma
+
+waffle :
+
+ancienne version avec wpa
+commenter les fichiers :
+-> /etc/dhcpcd.conf
+
+#SSID wifininja_5G
+#inform 192.168.0.20
+#static routers=192.168.0.1
+#noipv6
+
+-> copier le /etc/wpa_supplicant/wpa_supplicant.conf en wpa_supplicant_conf.bak
+
+network={
+    ssid="wifininja_5G"
+    psk="helloSigma!"
+    key_mgmt=WPA-PSK
+}
+
+-> modifier le fichier /etc/network/interfaces
+
+auto wlan0
+iface wlan0 inet static
+    address 192.168.0.25
+    network 255.255.255.0
+    gateway 192.168.0.1
+    wireless-chanel 1
+    wireless-essid wifininja
+    wireless-mode ad-hoc
+
+ssh pi@192.168.0.25
+pwd = sigma
+
+
+tests:
+
+sur pc
+tb3_set_env_burger
+roscore
+
+sur burger
+ssh donatello@192.168.0.30
+pwd = sigma
+
+tb3_bringup
+
+sur pc
+tb3_set_env_burger
+tb3_teleop
+

@@ -208,5 +208,21 @@ WA#2 -> 192.168.0.26
 
 
 
+How to flash an SDCard by using an image backup
+===============================================
+
+-> Use the software balena
+see at ~/install_turtlebot3/tools 
+
+-> choose the backup image of raspbian 
+see at ~/turtlebot3/backup_ip_raspbian_image
+
+-> start the waffle with the SDCard flashed
+change ip address in .bashrc file
+export ROS_HOSTNAME=192.168.0.XX
+
+change Ip address in wifi config
+sudo nano /etc/dhcpcd.conf
+inform 192.168.0.XX
 
 
