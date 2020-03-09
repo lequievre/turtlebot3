@@ -311,3 +311,15 @@ tb3_bringup
 sur pc
 tb3_set_env_burger
 tb3_teleop
+
+
+How to recover SDCard
+=====================
+
+sudo fdisk -l
+
+sudo fsck /dev/mmcblk0p1
+sudo fsck /dev/mmcblk0p2
+
+https://doc.ubuntu-fr.org/fsck
+
